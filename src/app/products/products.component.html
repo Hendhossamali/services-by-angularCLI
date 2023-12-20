@@ -1,0 +1,77 @@
+<!-- <div class="container">
+    
+    <h1 [ngClass]="classPageTitle">Products List</h1>
+    
+    <h2 [ngStyle]="stylePageTitle">Latest Products</h2>
+    
+    <h2>{{mainThemeColor}}</h2>
+   
+    <input id="example" [(ngModel)]="mainThemeColor">
+
+    <div class="row">
+        @for(product of products; track $index) {
+        <div class="col-4">
+            <div class="card" style="width:400px">
+                <img class="card-img-top" [src]="product.photo" [alt]="product.title">
+                <div class="card-body">
+                    <h4 class="card-title">{{product.title}}</h4>
+                    <p class="card-text">
+                        {{product.price}} EGP
+                        @switch (product.color) {
+                            @case ("Red"){
+                                <b class="text-danger">Red</b>
+                            }
+                            @case ("Blue"){
+                                <b class="text-primary">Blue</b>
+                            }
+                            @case ("Green"){
+                                <b class="text-success">Green</b>
+                            }
+                            @default {
+                                <b>Mixed Color</b>
+                            }
+
+                        }
+                    </p>
+                    <a href="#" class="btn btn-primary">Add to Cart</a>
+                </div>
+            </div>
+        </div>
+        } @empty {
+            <p class="text-danger h4 py-5"> No Products Found!</p>
+        }
+    </div>
+</div> -->
+
+
+
+<div class="container">
+
+    <h1 [ngClass]="classPageTitle">Products List</h1>
+
+    <h2 [ngStyle]="stylePageTitle"> {{todayDate | date }}</h2>
+
+    <div class="row" *ngIf="isLoggedIn">
+        <div class="col-4" *ngFor="let product of products">
+            <div class="card" style="width:400px">
+                <img class="card-img-top" [src]="product.photo" [alt]="product.title">
+                <div class="card-body">
+                    <p class="h4 card-title ">
+                        <a routerLink="/product/{{product.id}}">
+                            {{product.title}}
+                        </a>
+                    </p>
+                    <p class="card-text">
+                        {{product.price}} EGP
+                    </p>
+                    <div [ngSwitch]="product.color">
+                        <p *ngSwitchCase="'Red'" class="text-danger">Red</p>
+                        <p *ngSwitchCase="'Green'" class="text-success">Green</p>
+                        <p *ngSwitchDefault>Other Color</p>
+                    </div>
+                    <button href="#" class="btn btn-primary" (click)="addCartItem(product)">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
